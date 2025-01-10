@@ -23,7 +23,7 @@ def csvtoMarkdown(csv_file: Path, output: Path = Path("."), sort: str = "added_t
             md_content += f"\n### Chapter {row['章節']}\n"
             previous_chapter = row["章節"]
         # add the highlight content
-        md_content += f"- {row['劃線內容']}\n"
+        md_content += f"- {row['劃線內容'].replace("\n", "\n\t")}\n"
 
     md_file = output / f"{book_title}.md"
 
