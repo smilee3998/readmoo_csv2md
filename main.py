@@ -26,6 +26,19 @@ def csvtoMarkdown(csv_file: Path, output: Path = Path("."), sort: str = "added_t
         md_content += f"- {row['劃線內容']}\n"
 
     md_file = output / f"{book_title}.md"
+
+    # Check if the file exists
+    if md_file.exists():
+        # check if the file is the same
+        with open(md_file, "r", encoding="utf-8") as f:
+            if f.read() == md_content:
+                return
+        # ask for confirmation to overwrite
+        overwrite = input(f"{md_file} already exists. Overwrite? (y/n): ")
+        if overwrite.lower() != "y":
+            print(f"Skipped {csv_file}")
+            return
+
     with open(md_file, "w", encoding="utf-8") as f:
         f.write(md_content)
 
